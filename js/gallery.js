@@ -88,13 +88,20 @@ function galleryListener(event) {
     return;
   }
   const modal = basicLightbox.create(
-    `<img src="${event.target.dataset.source}" ></img>`
+    `<img src="${event.target.dataset.source}" ></img>`,
+    {
+      onShow: gallery.addEventListener("keydown", (event) => {
+        if (event.code === "Escape") {
+          modal.close();
+        }
+      }),
+
+      onClose: gallery.removeEventListener("keydown", (event) => {
+        if (event.code === "Escape") {
+          modal.close();
+        }
+      }),
+    }
   );
   modal.show();
-
-  gallery.addEventListener("keydown", (event) => {
-    if (event.code === "Escape") {
-      modal.close();
-    }
-  });
 }
