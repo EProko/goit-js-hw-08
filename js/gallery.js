@@ -87,21 +87,25 @@ function galleryListener(event) {
   if (event.target.nodeName !== "IMG") {
     return;
   }
+
   const modal = basicLightbox.create(
     `<img src="${event.target.dataset.source}" ></img>`,
     {
-      onShow: gallery.addEventListener("keydown", (event) => {
-        if (event.code === "Escape") {
-          modal.close();
-        }
-      }),
+      onShow: (modal) => {
+        document.addEventListener("keydown", closeModal);
+      },
 
-      onClose: gallery.removeEventListener("keydown", (event) => {
-        if (event.code === "Escape") {
-          modal.close();
-        }
-      }),
+      onClose: (modal) => {
+        document.removeEventListener("keydown", closeModal);
+      },
     }
   );
   modal.show();
+}
+
+function closeModal() {
+  if (event.code === "Escape") {
+    console.log(event.code);
+    modal.close();
+  }
 }
