@@ -101,11 +101,10 @@ function galleryListener(event) {
     }
   );
   modal.show();
-}
 
-function closeModal() {
-  if (event.code === "Escape") {
-    console.log(event.code);
-    modal.close();
+  function closeModal(event) {
+    if (event.code === "Escape") {
+      modal.close();
+    }
   }
 }
